@@ -11,8 +11,8 @@ const plugins = [
     }
   }),
   new HtmlWebpackPlugin({
-    title: 'Typescript Webpack Starter',
-    template: '!!ejs-loader!src/index.html'
+    title: 'Starfield',
+    template: 'index.html'
   }),
   new webpack.LoaderOptionsPlugin({
     options: {
