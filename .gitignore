@@ -1,1 +1,7 @@
 node_modules
+/.cache-loader
+.DS_Store
+/dist
+/tsc
+/tmp
+yarn-error.log

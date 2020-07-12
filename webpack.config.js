@@ -24,15 +24,21 @@ const plugins = [
   })
 ];
 
+const tsLoader = {
+    loader: 'ts-loader',
+    options: { transpileOnly: true }
+};
+
 var config = {
-  devtool: isProd ? 'hidden-source-map' : 'source-map',
+  devtool: isProd ? 'source-map' : '#cheap-module-source-map',
   context: path.resolve('./src'),
+  target: 'web',
   entry: {
-    app: './index.ts'
+    starfield: './index.ts'
   },
   output: {
     path: path.resolve('./dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -40,7 +46,7 @@ var config = {
         enforce: 'pre',
         test: /\.tsx?$/,
         exclude: [/\/node_modules\//],
-        use: ['awesome-typescript-loader', 'source-map-loader']
+        use: isProd ? [tsLoader] : ['source-map-loader', 'cache-loader', tsLoader]
       },
       !isProd
         ? {

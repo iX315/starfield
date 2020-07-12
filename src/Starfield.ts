@@ -1,5 +1,5 @@
 import Stars from './Stars'
-import * as Color from 'color'
+import Color from 'color';
 
 enum HyperspaceStates {
     Off,
@@ -42,9 +42,10 @@ export class Starfield {
     loop: any;
     fps = 0;
 
-    constructor (container: HTMLCanvasElement) {
+    public constructor (container: HTMLCanvasElement) {
         // starfield container (canvas)
-        this.context = container.getContext('2d');
+
+        this.context = container.getContext('2d')
         this.resize()
         container.width = this.w
         container.height = this.h
@@ -52,7 +53,7 @@ export class Starfield {
         this.changeAmount(this.amount)
     }
 
-    start() {
+    public start() {
         this.resize();
         this.loop = setInterval(() => this.tick(), this.fps);
         this.listeners()
