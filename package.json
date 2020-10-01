@@ -57,7 +57,7 @@
     "start": "npm run server:dev",
     "test": "karma start"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "color": "^3.1.2"
   }
