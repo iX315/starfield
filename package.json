@@ -46,9 +46,9 @@
   },
   "license": "ISC",
   "name": "starfield-next",
-  "main": "dist/starfield.cjs.js",
-  "module": "dist/starfield.es.js",
-  "types": "types/starfield.d.ts",
+  "main": "dist/starfield-next.cjs.js",
+  "module": "dist/starfield-next.es.js",
+  "types": "types/starfield-next.d.ts",
   "scripts": {
     "build": "tsc -p . && rollup -c",
     "clean": "npm cache verify && rimraf -- dist",
