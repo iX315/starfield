@@ -1,11 +1,10 @@
 import { StarFactory } from './StarFactory';
-import { HyperspaceStates } from 'Hyperspace';
-import { Options } from 'Options';
+import { HyperspaceStates } from './Hyperspace';
+import { Options } from './Options';
+import { CanvasContainer } from './CanvasContainer';
 export declare class Starfield extends Options {
     stars: StarFactory;
     hyperspace: HyperspaceStates;
-    w: number;
-    h: number;
     currentX: number;
     currentY: number;
     cursorX: number;
@@ -15,7 +14,7 @@ export declare class Starfield extends Options {
     z: number;
     test: boolean;
     _temp: any;
-    context: CanvasRenderingContext2D;
+    container: CanvasContainer;
     key: any;
     loop: any;
     constructor(container: HTMLCanvasElement, options?: Options);
