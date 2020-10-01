@@ -30,11 +30,11 @@ const tsLoader = {
 };
 
 var config = {
-  devtool: isProd ? 'source-map' : '#cheap-module-source-map',
+    devtool: isProd ? 'source-map' : 'eval-source-map',
   context: path.resolve('./src'),
   target: 'web',
   entry: {
-    starfield: './index.ts'
+    starfield: './index.dev.ts'
   },
   output: {
     path: path.resolve('./dist'),

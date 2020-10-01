@@ -9,6 +9,7 @@
     "@rollup/plugin-replace": "^2.3.3",
     "@types/color": "^3.0.1",
     "@types/jasmine": "^3.5.11",
+    "cache-loader": "^4.1.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "ejs-loader": "^0.5.0",
@@ -48,8 +49,8 @@
   "types": "types/starfield.d.ts",
   "scripts": {
     "build": "tsc -p . && rollup -c",
-    "clean": "npm cache clear && rimraf -- dist",
-    "server": "npm run server:dev",
+    "clean": "npm cache verify && rimraf -- dist",
+    "server": "npm run server:prod",
     "server:dev": "webpack-dev-server --mode development --config ./webpack.config.js --hot --inline --progress --watch --open",
     "server:prod": "cross-env NODE_ENV=production webpack-dev-server  --mode production --config ./webpack.config.js --port 3000 --host 0.0.0.0 --hot --inline --progress  --watch --open --content-base dist/",
     "measure": "gzip -c dist/starfield.js | wc -c",

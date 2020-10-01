@@ -1,3 +1,3 @@
-import { Starfield } from './Starfield';
+import { Starfield } from './Starfield'
 
 export default Starfield
