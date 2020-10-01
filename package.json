@@ -2,7 +2,8 @@
   "author": "Jury Giannelli <iX315@me.com>",
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "is just a star field...",
+  "description": "Useful library for star field creation with 2d canvas",
+  "repository": "https://github.com/iX315/starfield",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
@@ -39,6 +40,7 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   },
+  "sideEffects": false,
   "directories": {
     "test": "tests"
   },
