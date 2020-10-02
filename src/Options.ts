@@ -11,6 +11,7 @@ export class Options {
     fps?: number = 30
     useMouse?: boolean = false
     useArrowKeys?: boolean = false
+    showDebug?: boolean = false
 
     constructor(options: Options) {
         for (const key in options) {
