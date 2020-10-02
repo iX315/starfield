@@ -4,22 +4,22 @@ import { HyperspaceStates } from './Hyperspace'
 import { Options } from './Options'
 import { CanvasContainer } from './CanvasContainer'
 
+export class Coords {
+    x: number
+    y: number
+    z?: number
+}
+
 export class Starfield {
-    stars: StarFactory
+    container: CanvasContainer
+    starfactory: StarFactory
     hyperspace: HyperspaceStates = HyperspaceStates.Off
     options: Options
 
-    currentX = 0
-    currentY = 0
-    cursorX = 0
-    cursorY = 0
-    changedX = 0
-    changedY = 0
-    z = 0
+    currentPos: Coords
+    cursorPos: Coords
 
-    test = true
-    _temp: any
-    container: CanvasContainer
+    _temp_settings: any
 
     key: any
     loop: any
@@ -94,8 +94,8 @@ export class Starfield {
 
     mouse_manager(event: MouseEvent) {
         if (!this.options.useMouse) return
-        this.cursorX = event.clientX
-        this.cursorY = event.clientY
+        this.cursorPos.x = event.clientX
+        this.cursorPos.y = event.clientY
     }
 
     changeColor(colorValue: any) {
@@ -104,86 +104,65 @@ export class Starfield {
 
     changeAmount(amountValue: number) {
         this.options.amount = amountValue
-        this.stars = new StarFactory(this.options.amount, this.container.width, this.container.height, this.currentX, this.currentY, this.z)
+        this.starfactory = new StarFactory({
+            count: this.options.amount,
+            width: this.container.width,
+            height: this.container.height,
+            x: this.currentPos.x,
+            y: this.currentPos.y,
+            z: this.maxZ()
+        })
     }
 
     resize() {
-        // this.w = this.get_screen_size().w
-        // this.h = this.get_screen_size().h
-        this.currentX = Math.round(this.container.width / 2)
-        this.currentY = Math.round(this.container.height / 2)
-        this.z = (this.container.width + this.container.height) / 2
-        this.options.color_ratio = 1 / this.z
-        this.cursorX = this.currentX
-        this.cursorY = this.currentY
+        this.currentPos = {
+            x: Math.round(this.container.width / 2),
+            y: Math.round(this.container.height / 2)
+        }
+        this.cursorPos = this.currentPos
+    }
+
+    debug() {
+        this.container.context.font = "12px Arial"
+        this.container.context.fillStyle = "white"
+
+        this.container.context.fillText("speed: "+this.options.speed, 0, this.container.height - (12*3))
+        this.container.context.fillText("maxZ: "+this.maxZ(), 0, this.container.height - (12*2))
+        this.container.context.fillText("star: "+JSON.stringify(this.starfactory.store[0]), 0, this.container.height - (12*1))
     }
 
     update() {
         //context.lineCap='round'
         this.container.context.fillStyle = this.options.backgroundColor.alpha(this.options.opacity).toString()
         this.container.context.strokeStyle = this.options.color.toString() // Star's color
+        this.container.context.fillRect(0, 0, this.container.width, this.container.height)
+        this.options.showDebug ? this.debug() : null
     }
 
     tick() {
-        this.update()
-        this.changedX = -(this.cursorX - this.currentX) / 2
-        this.changedY = -(this.cursorY - this.currentY) / 2
-
         this.hyperspaceTick()
-        
-        this.container.context.fillRect(0, 0, this.container.width, this.container.height)
 
-        for (var i = 0; i < this.options.amount; i++) {
-            let _star = this.stars.store[i]
+        this.update()
 
-            this.test = true
-            this.stars.x_save = _star.from
-            this.stars.y_save = _star.to
-            _star.x += this.changedX >> 4
-            if (_star.x > this.currentX << 1) {
-                _star.x -= this.container.width << 1
-                this.test = false
-            }
-            if (_star.x < -this.currentX << 1) {
-                _star.x += this.container.width << 1
-                this.test = false
-            }
-            _star.y += this.changedY >> 4
-            if (_star.y > this.currentY << 1) {
-                _star.y -= this.container.height << 1
-                this.test = false
-            }
-            if (_star.y < -this.currentY << 1) {
-                _star.y += this.container.height << 1
-                this.test = false
-            }
-            _star.z -= this.options.speed
-            if (_star.z > this.z) {
-                _star.z -= this.z
-                this.test = false
-            }
-            if (_star.z < 0) {
-                _star.z += this.z
-                this.test = false
-            }
-            _star.from = this.currentX + (_star.x / _star.z) * this.options.spread
-            _star.to = this.currentY + (_star.y / _star.z) * this.options.spread
-            if (this.stars.x_save > 0 && this.stars.x_save < this.container.width && this.stars.y_save > 0 && this.stars.y_save < this.container.height && this.test) {
-                this.container.context.lineWidth = (1 - this.options.color_ratio * _star.z) * 2
-                this.container.context.beginPath()
-                this.container.context.moveTo(this.stars.x_save, this.stars.y_save)
-                this.container.context.lineTo(_star.from, _star.to)
-                this.container.context.stroke()
-                this.container.context.closePath()
-            }
-        }
+        this.starfactory.move({
+            container: this.container,
+            changeRate: {
+                x: -(this.cursorPos.x - this.currentPos.x) / 2,
+                y: -(this.cursorPos.y - this.currentPos.y) / 2
+            },
+            currentPos: this.currentPos,
+            speed: this.options.speed,
+            spread: this.options.spread,
+            color_ratio: this.options.color_ratio,
+            maxZ: this.maxZ()
+        })
     }
 
     hyperspaceTick() {
         if (this.hyperspace == HyperspaceStates.Entering) {
             // save the current settings...
-            if (!this._temp) {
-                this._temp = {
+            if (!this._temp_settings) {
+                this._temp_settings = {
                     speed: this.options.speed,
                     spread: this.options.spread,
                     backgroundColor: Color(this.container.context.fillStyle)
@@ -206,12 +185,12 @@ export class Starfield {
             this.options.spread = this.options.spread * 0.99
             var c = Math.round(this.options.speed / 2.5) - 32
             this.container.context.fillStyle = Color.rgb(c, c, c).toString()
-            if (this.options.speed < this._temp.speed) {
-                this.container.context.fillStyle = this._temp.backgroundColor.toString()
-                this.options.speed = this._temp.speed
-                this.options.spread = this._temp.spread
+            if (this.options.speed < this._temp_settings.speed) {
+                this.container.context.fillStyle = this._temp_settings.backgroundColor.toString()
+                this.options.speed = this._temp_settings.speed
+                this.options.spread = this._temp_settings.spread
                 this.hyperspace = HyperspaceStates.Off
-                this._temp = false
+                this._temp_settings = false
             }
         }
     }
@@ -220,5 +199,10 @@ export class Starfield {
         var w = document.documentElement.clientWidth
         var h = document.documentElement.clientHeight
         return { w, h }
+    }
+
+    maxZ() {
+        let { w, h } = this.get_screen_size()
+        return (w + h) /2
     }
 }
