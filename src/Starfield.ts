@@ -49,13 +49,14 @@ export class Starfield {
         this.removeListeners()
     }
 
-
     addListeners() {
+        window.addEventListener('resize', () => this.resize())
         document.addEventListener('keyup', (e) => this.key_manager(e))
         document.addEventListener('mousemove', (e) => this.mouse_manager(e))
     }
 
     removeListeners() {
+        window.removeEventListener('resize', () => this.resize())
         document.removeEventListener('keyup', (e) => this.key_manager(e))
         document.removeEventListener('mousemove', (e) => this.mouse_manager(e))
     }
@@ -104,6 +105,10 @@ export class Starfield {
 
     changeAmount(amountValue: number) {
         this.options.amount = amountValue
+        this.createStarFactory()
+    }
+
+    createStarFactory() {
         this.starfactory = new StarFactory({
             count: this.options.amount,
             width: this.container.width,
@@ -120,6 +125,8 @@ export class Starfield {
             y: Math.round(this.container.height / 2)
         }
         this.cursorPos = this.currentPos
+        this.container.resize()
+        this.createStarFactory()
     }
 
     debug() {
@@ -128,7 +135,7 @@ export class Starfield {
 
         this.container.context.fillText("speed: "+this.options.speed, 0, this.container.height - (12*3))
         this.container.context.fillText("maxZ: "+this.maxZ(), 0, this.container.height - (12*2))
-        this.container.context.fillText("star: "+JSON.stringify(this.starfactory.store[0]), 0, this.container.height - (12*1))
+        this.container.context.fillText("star[0]: "+JSON.stringify(this.starfactory.store[0]), 0, this.container.height - (12*1))
     }
 
     update() {
@@ -202,7 +209,7 @@ export class Starfield {
     }
 
     maxZ() {
-        let { w, h } = this.get_screen_size()
-        return (w + h) /2
+        let { width, height } = this.container
+        return (width + height) /2
     }
 }
