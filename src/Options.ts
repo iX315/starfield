@@ -1,27 +1,22 @@
 import Color from 'color'
 
 export class Options {
-    amount: number
-    color_ratio: number
-    opacity: number
-    spread: number
-    speed: number
-    color: Color
-    backgroundColor: Color
-    fps: number
-    useMouse: boolean
-    useArrowKeys: boolean
-}
+    color_ratio?: number = 5
+    amount?: number = 2000
+    opacity?: number = 0.8
+    spread?: number = 256
+    speed?: number = 2
+    color?: Color = Color.rgb(241, 231, 192)
+    backgroundColor?: Color = Color.rgb(32,35,45)
+    fps?: number = 30
+    useMouse?: boolean = false
+    useArrowKeys?: boolean = false
 
-export const DefaultOptions = <Options> {
-    amount: 2000,
-    color_ratio: 5,
-    opacity: 0.8,
-    spread: 256,
-    speed: 2,
-    color: Color.rgb(241, 231, 192),
-    backgroundColor: Color.rgb(32,35,45),
-    fps: 30,
-    useMouse: false,
-    useArrowKeys: false,
+    constructor(options: Options) {
+        for (const key in options) {
+            if (Object.prototype.hasOwnProperty.call(this, key)) {
+                this[key] = options[key]
+            }
+        }
+    }
 }
