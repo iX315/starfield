@@ -1,62 +1,61 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "isolatedModules": false,
-        "importHelpers": true,
-        "jsx": "react",
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "declaration": true,
-        "declarationDir": "types",
-        "outDir": "tsc",
-        "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "rootDir": "src",
-        "sourceMap": true,
-        "baseUrl": "src",
-        "paths": {
-            "@starfield": [
-                "../src/index"
-            ],
-            "@starfield/*": [
-                "../src/*"
-            ]
-        },
-        // "strictNullChecks": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "noImplicitUseStrict": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "removeComments": false,
-        "lib": [
-            "es2017",
-            "dom"
-        ],
-        "skipLibCheck": true
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "importHelpers": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "outDir": "tsc",
+    "noLib": false,
+    "preserveConstEnums": true,
+    "rootDir": "src",
+    "sourceMap": true,
+    "baseUrl": "src",
+    "paths": {
+      "@starfield": [
+        "../src/index"
+      ],
+      "@starfield/*": [
+        "../src/*"
+      ]
     },
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "exclude": [
-        "node_modules",
-        "build",
-        "**/__tests__/*",
-        "jest.setup.tsx",
-        "dev",
-        "types",
-        "dev/examples.starfield",
-        "test",
-        "skins",
-        "dist",
-        "temp",
-        "api",
-        "cypress"
+    // "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "lib": [
+      "es2017",
+      "dom"
     ],
-    "filesGlob": [
-        "./src/**/*.ts"
-    ]
+    "skipLibCheck": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "exclude": [
+    "node_modules",
+    "build",
+    "**/__tests__/*",
+    "jest.setup.tsx",
+    "dev",
+    "types",
+    "dev/examples.starfield",
+    "test",
+    "skins",
+    "dist",
+    "temp",
+    "api",
+    "cypress"
+  ],
+  "filesGlob": [
+    "./src/**/*.ts"
+  ]
 }
