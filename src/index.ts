@@ -1,3 +1,7 @@
-import {Starfield} from './Starfield'
+import {Starfield as StarfieldClass} from './Starfield'
+import {Starfield as StarfieldComponent} from './Starfield.component'
 
-export default Starfield
+export default {
+  StarfieldClass,
+  StarfieldComponent,
+}

@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "isolatedModules": false,
     "importHelpers": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -32,10 +32,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true
   },
   "compileOnSave": false,
