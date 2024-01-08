@@ -25,7 +25,7 @@ export class Starfield {
   key: any
   loop: any
 
-  public constructor(container: HTMLCanvasElement, options: Options = {}) {
+  public constructor(container: HTMLCanvasElement, options?: Options) {
     this.options = new Options(options)
 
     // starfield container (canvas)

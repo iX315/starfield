@@ -2,19 +2,19 @@ import { StarFactory } from './StarFactory';
 import { HyperspaceStates } from './Hyperspace';
 import { Options } from './Options';
 import { CanvasContainer } from './CanvasContainer';
-export declare class Starfield extends Options {
-    stars: StarFactory;
-    hyperspace: HyperspaceStates;
-    currentX: number;
-    currentY: number;
-    cursorX: number;
-    cursorY: number;
-    changedX: number;
-    changedY: number;
-    z: number;
-    test: boolean;
-    _temp: any;
+export declare class Coords {
+    x: number;
+    y: number;
+    z?: number;
+}
+export declare class Starfield {
     container: CanvasContainer;
+    starfactory: StarFactory;
+    hyperspace: HyperspaceStates;
+    options: Options;
+    currentPos: Coords;
+    cursorPos: Coords;
+    _temp_settings: any;
     key: any;
     loop: any;
     constructor(container: HTMLCanvasElement, options?: Options);
@@ -27,7 +27,9 @@ export declare class Starfield extends Options {
     mouse_manager(event: MouseEvent): void;
     changeColor(colorValue: any): void;
     changeAmount(amountValue: number): void;
+    createStarFactory(): void;
     resize(): void;
+    debug(): void;
     update(): void;
     tick(): void;
     hyperspaceTick(): void;
@@ -35,4 +37,5 @@ export declare class Starfield extends Options {
         w: number;
         h: number;
     };
+    maxZ(): number;
 }

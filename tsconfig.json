@@ -53,6 +53,7 @@
     "cypress"
   ],
   "filesGlob": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
   ]
 }

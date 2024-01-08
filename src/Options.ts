@@ -13,11 +13,7 @@ export class Options {
   useArrowKeys?: boolean = false
   showDebug?: boolean = false
 
-  constructor(options: Options) {
-    for (const key in options) {
-      if (Object.prototype.hasOwnProperty.call(this, key)) {
-        this[key] = options[key]
-      }
-    }
+  constructor(options: Partial<Options>) {
+    Object.assign(this, options)
   }
 }
