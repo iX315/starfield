@@ -4,5 +4,5 @@ type CanvasProps = DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HT
 export interface StarfieldProps extends CanvasProps {
     options?: Options;
 }
-export declare const Starfield: ({ options, ...restProps }: StarfieldProps) => import("react").JSX.Element;
+export declare const Starfield: ({ options, ...restProps }: StarfieldProps) => import("react/jsx-runtime").JSX.Element;
 export {};

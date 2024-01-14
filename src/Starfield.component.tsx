@@ -13,10 +13,12 @@ export interface StarfieldProps extends CanvasProps {
 
 export const Starfield = ({options = {}, ...restProps}: StarfieldProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null!)
+  const StarfieldInstance = useRef<StarfieldClass>(null!)
 
   useEffect(() => {
     if (canvasRef.current) {
-      new StarfieldClass(canvasRef.current, options)
+      StarfieldInstance.current = new StarfieldClass(canvasRef.current, options)
+      StarfieldInstance.current.start()
     }
   }, [canvasRef])
 

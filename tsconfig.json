@@ -3,57 +3,14 @@
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": false,
-    "importHelpers": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationDir": "types",
-    "outDir": "tsc",
-    "noLib": false,
-    "preserveConstEnums": true,
-    "rootDir": "src",
-    "sourceMap": true,
-    "baseUrl": "src",
-    "paths": {
-      "@starfield": [
-        "../src/index"
-      ],
-      "@starfield/*": [
-        "../src/*"
-      ]
-    },
-    // "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noImplicitUseStrict": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "skipLibCheck": true
+    "outDir": "dist",
+    "strict": false,
+    "esModuleInterop": true
   },
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "exclude": [
-    "node_modules",
-    "build",
-    "**/__tests__/*",
-    "jest.setup.tsx",
-    "dev",
-    "types",
-    "dev/examples.starfield",
-    "test",
-    "skins",
-    "dist",
-    "temp",
-    "api",
-    "cypress"
-  ],
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
