@@ -55,7 +55,8 @@
   "license": "ISC",
   "name": "starfield-next",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "./dist/starfield-next.umd.js",
   "module": "./dist/starfield-next.es.js",
@@ -79,7 +80,7 @@
     "lint:fix": "eslint --fix src/*.ts src/*.tsx",
     "test": "karma start"
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "dependencies": {
     "color": "^3.2.1"
   },
