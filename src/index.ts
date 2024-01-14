@@ -1,7 +1,5 @@
-import {Starfield as StarfieldClass} from './Starfield'
-import {Starfield as StarfieldComponent} from './Starfield.component'
+import {Starfield as ClassExport} from './Starfield'
+import {Starfield as ComponentExport} from './Starfield.component'
 
-export default {
-  StarfieldClass,
-  StarfieldComponent,
-}
+export const StarfieldClass = ClassExport
+export const StarfieldComponent = ComponentExport
