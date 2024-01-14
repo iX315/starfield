@@ -1,6 +1,6 @@
 export enum HyperspaceStates {
-    Off,
-    Entering,
-    Running,
-    Exiting
+  Off,
+  Entering,
+  Running,
+  Exiting,
 }
