@@ -5,6 +5,8 @@ import {HyperspaceStates} from './Hyperspace'
 import {Options} from './Options'
 import {CanvasContainer} from './CanvasContainer'
 
+import type {OptionsProps} from './Options'
+
 export class Coords {
   x: number
   y: number
@@ -25,8 +27,8 @@ export class Starfield {
   key: any
   loop: any
 
-  public constructor(container: HTMLCanvasElement, options?: Options) {
-    this.options = new Options(options)
+  public constructor(container: HTMLCanvasElement, options?: OptionsProps) {
+    this.setOptions(options)
 
     // starfield container (canvas)
     if (!container) {
@@ -48,6 +50,10 @@ export class Starfield {
   public stop() {
     clearTimeout(this.loop)
     this.removeListeners()
+  }
+
+  public setOptions(options: OptionsProps) {
+    this.options = new Options(options)
   }
 
   addListeners() {

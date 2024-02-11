@@ -80,7 +80,7 @@
     "lint:fix": "eslint --fix src/*.ts src/*.tsx",
     "test": "karma start"
   },
-  "version": "0.3.2",
+  "version": "0.3.3",
   "dependencies": {
     "color": "^3.2.1"
   },

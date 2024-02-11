@@ -2,6 +2,8 @@ import { StarFactory } from './StarFactory';
 import { HyperspaceStates } from './Hyperspace';
 import { Options } from './Options';
 import { CanvasContainer } from './CanvasContainer';
+import type { OptionsProps } from './Options';
+
 export declare class Coords {
     x: number;
     y: number;
@@ -17,9 +19,10 @@ export declare class Starfield {
     _temp_settings: any;
     key: any;
     loop: any;
-    constructor(container: HTMLCanvasElement, options?: Options);
+    constructor(container: HTMLCanvasElement, options?: OptionsProps);
     start(): void;
     stop(): void;
+    setOptions(options: OptionsProps): void;
     addListeners(): void;
     removeListeners(): void;
     key_manager(event: KeyboardEvent): void;
