@@ -2,13 +2,13 @@ import {useEffect, useRef} from 'react'
 
 import {Starfield as StarfieldClass} from './Starfield'
 
-import type {Options} from './Options'
+import type {OptionsProps} from './Options'
 import type {CanvasHTMLAttributes, DetailedHTMLProps} from 'react'
 
 type CanvasProps = DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>
 
 export interface StarfieldProps extends CanvasProps {
-  options?: Options
+  options?: OptionsProps
 }
 
 export const Starfield = ({options = {}, ...restProps}: StarfieldProps) => {
@@ -21,6 +21,12 @@ export const Starfield = ({options = {}, ...restProps}: StarfieldProps) => {
       StarfieldInstance.current.start()
     }
   }, [canvasRef])
+
+  useEffect(() => {
+    if (StarfieldInstance.current) {
+      StarfieldInstance.current.setOptions(options)
+    }
+  }, [options])
 
   return (
     <canvas

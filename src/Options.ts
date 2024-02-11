@@ -1,5 +1,10 @@
 import Color from 'color'
 
+export interface OptionsProps extends Partial<Omit<Options, 'color' | 'backgroundColor'>> {
+  color?: Color | string
+  backgroundColor?: Color | string
+}
+
 export class Options {
   color_ratio?: number = 5
   amount?: number = 2000
@@ -13,7 +18,10 @@ export class Options {
   useArrowKeys?: boolean = false
   showDebug?: boolean = false
 
-  constructor(options: Partial<Options>) {
+  constructor(options: OptionsProps) {
+    const {color, backgroundColor} = options
+    if (typeof color === 'string') options.color = Color(color)
+    if (typeof backgroundColor === 'string') options.backgroundColor = Color(backgroundColor)
     Object.assign(this, options)
   }
 }
