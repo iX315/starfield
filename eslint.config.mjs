@@ -1,0 +1,199 @@
+import { defineConfig, globalIgnores } from "eslint/config";
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
+import stylistic from "@stylistic/eslint-plugin";
+import _import from "eslint-plugin-import";
+import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import parser from "jsonc-eslint-parser";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default defineConfig([globalIgnores(["**/node_modules", "**/dist", "**/types"]), {
+    extends: fixupConfigRules(compat.extends(
+        "plugin:@stylistic/disable-legacy",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+    )),
+
+    plugins: {
+        "@stylistic": fixupPluginRules(stylistic),
+        import: fixupPluginRules(_import),
+        "@typescript-eslint": typescriptEslint,
+    },
+
+    languageOptions: {
+        parser: tsParser,
+    },
+
+    settings: {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"],
+        },
+
+        "import/resolver": {
+            typescript: {
+                alwaysTryTypes: true,
+            },
+        },
+    },
+
+    rules: {
+        "@stylistic/comma-spacing": "error",
+        "@stylistic/semi": ["error", "never"],
+        "@stylistic/indent": ["error", 2],
+        "@stylistic/jsx-indent": ["error", 2],
+        "@stylistic/jsx-indent-props": ["error", 2],
+
+        "@typescript-eslint/no-unused-vars": ["error", {
+            argsIgnorePattern: "_",
+            varsIgnorePattern: "_",
+            caughtErrorsIgnorePattern: "_",
+            ignoreRestSiblings: true,
+        }],
+
+        "@stylistic/member-delimiter-style": ["error", {
+            multiline: {
+                delimiter: "none",
+                requireLast: false,
+            },
+
+            singleline: {
+                delimiter: "semi",
+                requireLast: false,
+            },
+
+            multilineDetection: "brackets",
+        }],
+
+        "@stylistic/comma-dangle": ["error", {
+            arrays: "always-multiline",
+            objects: "always-multiline",
+            imports: "always-multiline",
+            exports: "always-multiline",
+            functions: "always-multiline",
+            enums: "always-multiline",
+            generics: "always-multiline",
+            tuples: "always-multiline",
+        }],
+
+        "@stylistic/object-curly-spacing": ["error", "never"],
+
+        "@stylistic/jsx-curly-brace-presence": ["error", {
+            props: "always",
+            propElementValues: "always",
+            children: "ignore",
+        }],
+
+        "@stylistic/jsx-max-props-per-line": ["error", {
+            maximum: 1,
+            when: "always",
+        }],
+
+        "@stylistic/jsx-first-prop-new-line": ["error", "multiline"],
+        "@stylistic/jsx-closing-bracket-location": ["error", "tag-aligned"],
+        "@stylistic/jsx-closing-tag-location": ["error"],
+        "@stylistic/jsx-child-element-spacing": ["warn"],
+
+        "@stylistic/jsx-wrap-multilines": ["error", {
+            declaration: "parens-new-line",
+            assignment: "parens-new-line",
+            return: "parens-new-line",
+            arrow: "parens-new-line",
+            condition: "parens-new-line",
+            logical: "parens-new-line",
+            prop: "parens-new-line",
+        }],
+
+        "@stylistic/quotes": ["error", "single", {
+            allowTemplateLiterals: true,
+            avoidEscape: true,
+        }],
+
+        "@stylistic/jsx-quotes": ["error", "prefer-single"],
+
+        "@stylistic/no-trailing-spaces": ["error", {
+            ignoreComments: true,
+        }],
+
+        "@stylistic/no-multiple-empty-lines": ["error", {
+            max: 1,
+            maxEOF: 0,
+            maxBOF: 0,
+        }],
+
+        "@typescript-eslint/consistent-type-imports": ["error", {
+            disallowTypeAnnotations: true,
+            fixStyle: "separate-type-imports",
+            prefer: "type-imports",
+        }],
+
+        "no-nested-ternary": "error",
+        "no-unneeded-ternary": "error",
+
+        "max-len": ["error", {
+            code: 120,
+            tabWidth: 2,
+            ignoreStrings: true,
+            ignoreTemplateLiterals: true,
+            ignoreRegExpLiterals: true,
+            ignoreUrls: true,
+        }],
+
+        "no-tabs": "error",
+
+        "import/order": ["error", {
+            "newlines-between": "always",
+
+            groups: [
+                ["builtin", "external"],
+                "internal",
+                ["parent", "sibling", "index", "object"],
+                "type",
+            ],
+        }],
+
+        "import/newline-after-import": "error",
+        "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    },
+}, {
+    files: ["**/*.json"],
+
+    languageOptions: {
+        parser: parser,
+    },
+
+    rules: {},
+}, {
+    files: ["**/*.tsx", "**/*.jsx"],
+
+    rules: {
+        "react/jsx-key": ["warn", {
+            checkFragmentShorthand: true,
+        }],
+    },
+}, {
+    files: ["**/*.js", "**/*.cjs"],
+
+    rules: {
+        "@typescript-eslint/no-var-requires": "off",
+    },
+}, {
+    files: ["**/*.ts", "**/*.tsx"],
+
+    rules: {
+        "@typescript-eslint/no-explicit-any": ["off"],
+    },
+}, {
+    files: ["**/*.js", "**/*.jsx"],
+    rules: {},
+}]);
