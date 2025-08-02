@@ -1,5 +1,6 @@
-import {Starfield as ClassExport} from './Starfield'
-import {Starfield as ComponentExport} from './Starfield.component'
+import {Starfield as instance} from './Starfield'
+import {Starfield as Component} from './Starfield.component'
 
-export const StarfieldClass = ClassExport
-export const StarfieldComponent = ComponentExport
+export const Starfield = Object.assign(Component, {
+  instance
+})
