@@ -15,6 +15,7 @@
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/browser": "^3.2.4",
     "cache-loader": "^4.1.0",
     "cross-env": "^7.0.3",
     "css-loader": "^4.3.0",
@@ -26,19 +27,13 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "html-loader": "^1.3.2",
-    "html-webpack-plugin": "^4.5.2",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine": "^3.99.0",
     "jasmine-core": "^3.99.1",
     "jsonc-eslint-parser": "^2.4.0",
-    "karma": "^5.2.3",
-    "karma-chrome-launcher": "^3.2.0",
-    "karma-coverage-istanbul-reporter": "^3.0.3",
-    "karma-jasmine": "^4.0.2",
-    "karma-sourcemap-loader": "^0.3.8",
-    "karma-spec-reporter": "0.0.32",
-    "karma-webpack": "^4.0.2",
-    "react": "^18.2.0",
+    "playwright": "^1.54.1",
+    "react": "^18.3.1",
+    "react-dom": "18.3.1",
     "rimraf": "^3.0.2",
     "source-map-loader": "^1.1.3",
     "style-loader": "^1.3.0",
@@ -47,9 +42,8 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vite-plugin-dts": "^3.7.0",
-    "webpack": "^4.47.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3"
+    "vitest": "^3.2.4",
+    "vitest-browser-react": "^1.0.1"
   },
   "sideEffects": false,
   "directories": {
@@ -74,21 +68,19 @@
   "scripts": {
     "build": "tsc && vite build",
     "clean": "pnpm store prune && rimraf -- dist",
-    "server": "pnpm run server:prod",
-    "server:dev": "webpack-dev-server --mode development --config ./webpack.config.js --hot --inline --progress --watch --open",
-    "server:prod": "cross-env NODE_ENV=production webpack-dev-server  --mode production --config ./webpack.config.js --port 3000 --host 0.0.0.0 --hot --inline --progress  --watch --open --content-base dist/",
     "measure": "gzip -c dist/starfield.js | wc -c",
-    "start": "pnpm run server:dev",
+    "dev": "vite serve",
     "lint": "eslint src/*.ts src/*.tsx",
     "lint:fix": "eslint --fix src/*.ts src/*.tsx",
-    "test": "karma start"
+    "test": "vitest"
   },
+  "type": "module",
   "version": "3.1.0",
   "dependencies": {
     "color": "^3.2.1"
   },
   "packageManager": "pnpm@8.14.0",
   "engines": {
-    "node": "^24.0.0"
+    "node": "^22.0.0"
   }
 }
