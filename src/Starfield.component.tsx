@@ -1,9 +1,9 @@
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 
-import {Starfield as StarfieldClass} from './Starfield'
+import { Starfield as StarfieldClass } from './Starfield'
 
-import type {Options} from './Options'
-import type {CanvasHTMLAttributes, DetailedHTMLProps} from 'react'
+import type { Options } from './Options'
+import type { CanvasHTMLAttributes, DetailedHTMLProps } from 'react'
 
 type CanvasProps = DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>
 
@@ -11,14 +11,18 @@ export interface StarfieldProps extends CanvasProps {
   options?: Options
 }
 
-export const Starfield = ({options = {}, ...restProps}: StarfieldProps) => {
+export const Starfield = ({ options = {}, ...restProps }: StarfieldProps) => {
   const canvasRef = useRef<HTMLCanvasElement>()
+  const starfield = useRef<StarfieldClass>()
 
   useEffect(() => {
     if (canvasRef.current) {
-      new StarfieldClass(canvasRef.current, options).start()
+      if (!starfield.current) {
+        starfield.current = new StarfieldClass(canvasRef.current, options)
+      }
+      starfield.current.start()
     }
-  }, [canvasRef])
+  }, [canvasRef, options])
 
   return (
     <canvas

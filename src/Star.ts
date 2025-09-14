@@ -1,5 +1,5 @@
-import type {CanvasContainer} from './CanvasContainer'
-import type {Coords} from './Starfield'
+import type { CanvasContainer } from './CanvasContainer'
+import type { Coords } from './Starfield'
 
 export interface MoveParams {
   container: CanvasContainer
@@ -37,12 +37,12 @@ export class Star {
     speed,
     spread,
     color_ratio,
-    maxZ,
+    maxZ
   }: MoveParams) {
     this.out_of_view = false
     const new_coords = {
       x: this.from,
-      y: this.to,
+      y: this.to
     }
 
     this.moveX(changeRate.x, currentPos.x, container.width)

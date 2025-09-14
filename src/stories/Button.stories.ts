@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
-
 import { Starfield } from '../Starfield.component'
+
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
   title: 'Starfield',
   component: Starfield,
-  tags: ['autodocs'],
+  tags: ['autodocs']
 } satisfies Meta<typeof Starfield>
 
 export default meta
@@ -13,12 +13,12 @@ type Story = StoryObj<typeof meta>
 
 
 export const Default: Story = {
-  args: {},
+  args: {}
 }
 
 export const Fullscreen: Story = {
   parameters: {
-    layout: 'fullscreen',
+    layout: 'fullscreen'
   },
   args: {}
 }

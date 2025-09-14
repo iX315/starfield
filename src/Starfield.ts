@@ -1,9 +1,9 @@
 import Color from 'color'
 
-import {StarFactory} from './StarFactory'
-import {HyperspaceStates} from './Hyperspace'
-import {Options} from './Options'
-import {CanvasContainer} from './CanvasContainer'
+import { StarFactory } from './StarFactory'
+import { HyperspaceStates } from './Hyperspace'
+import { Options } from './Options'
+import { CanvasContainer } from './CanvasContainer'
 
 export class Coords {
   x: number
@@ -43,6 +43,7 @@ export class Starfield {
     this.resize()
     this.loop = setInterval(() => this.tick(), this.options.fps)
     this.addListeners()
+    return this
   }
 
   public stop() {
@@ -63,15 +64,21 @@ export class Starfield {
   }
 
   key_manager(event: KeyboardEvent) {
-    let key = event.which || event.keyCode
-    console.log(key)
+    const key = event.key
+
     switch (key) {
-      case 27:
-        // esc - when the loop is not set start the animation
-        !this.loop ? this.start() : this.stop()
+      case 'Esc':
+      case 'Escape':
+        //  when the loop is not set start the animation
+        if (this.loop) {
+          this.stop()
+        } else {
+          this.start()
+        }
         break
-      case 32:
-        // spacebar
+      case ' ':
+      case 'Space':
+      case 'Spacebar':
         if (this.hyperspace == HyperspaceStates.Off) {
           this.hyperspace = HyperspaceStates.Entering
         }
@@ -83,14 +90,28 @@ export class Starfield {
     if (this.options.useArrowKeys) {
       this.use_arrows(key)
     }
-    top.status = 'key=' + ((key < 100) ? '0' : '') + ((key < 10) ? '0' : '') + key
   }
 
-  use_arrows(key: number) {
+  use_arrows(key: string) {
     switch (key) {
-      case 38:
-        // arrow up
+      case 'ArrowUp':
+      case 'Up':
+        // handle up
         break
+      case 'ArrowDown':
+      case 'Down':
+        // handle down
+        break
+      case 'ArrowLeft':
+      case 'Left':
+        // handle left
+        break
+      case 'ArrowRight':
+      case 'Right':
+        // handle right
+        break
+      default:
+        // no action
     }
   }
 
@@ -116,14 +137,14 @@ export class Starfield {
       height: this.container.height,
       x: this.currentPos.x,
       y: this.currentPos.y,
-      z: this.maxZ(),
+      z: this.maxZ()
     })
   }
 
   resize() {
     this.currentPos = {
       x: Math.round(this.container.width / 2),
-      y: Math.round(this.container.height / 2),
+      y: Math.round(this.container.height / 2)
     }
     this.cursorPos = this.currentPos
     this.container.resize()
@@ -144,7 +165,9 @@ export class Starfield {
     this.container.context.fillStyle = this.options.backgroundColor.alpha(this.options.opacity).toString()
     this.container.context.strokeStyle = this.options.color.toString() // Star's color
     this.container.context.fillRect(0, 0, this.container.width, this.container.height)
-    this.options.showDebug ? this.debug() : null
+    if (this.options.showDebug) {
+      this.debug()
+    }
   }
 
   tick() {
@@ -156,13 +179,13 @@ export class Starfield {
       container: this.container,
       changeRate: {
         x: -(this.cursorPos.x - this.currentPos.x) / 2,
-        y: -(this.cursorPos.y - this.currentPos.y) / 2,
+        y: -(this.cursorPos.y - this.currentPos.y) / 2
       },
       currentPos: this.currentPos,
       speed: this.options.speed,
       spread: this.options.spread,
       color_ratio: this.options.color_ratio,
-      maxZ: this.maxZ(),
+      maxZ: this.maxZ()
     })
   }
 
@@ -173,13 +196,13 @@ export class Starfield {
         this._temp_settings = {
           speed: this.options.speed,
           spread: this.options.spread,
-          backgroundColor: Color(this.container.context.fillStyle),
+          backgroundColor: Color(this.container.context.fillStyle)
         }
       }
 
       this.options.speed = this.options.speed * 1.025
       this.options.spread = this.options.spread * 0.99
-      var c = Math.round(this.options.speed * 2.5) + 32
+      const c = Math.round(this.options.speed * 2.5) + 32
       this.container.context.fillStyle = Color.rgb(c, c, c).toString()
       if (this.options.speed > 112) {
         this.container.context.fillStyle = Color.rgb(43, 45, 53).toString()
@@ -191,7 +214,7 @@ export class Starfield {
     if (this.hyperspace == HyperspaceStates.Exiting) {
       this.options.speed = this.options.speed / 1.025
       this.options.spread = this.options.spread * 0.99
-      var c = Math.round(this.options.speed / 2.5) - 32
+      const c = Math.round(this.options.speed / 2.5) - 32
       this.container.context.fillStyle = Color.rgb(c, c, c).toString()
       if (this.options.speed < this._temp_settings.speed) {
         this.container.context.fillStyle = this._temp_settings.backgroundColor.toString()
@@ -204,13 +227,13 @@ export class Starfield {
   }
 
   get_screen_size() {
-    var w = document.documentElement.clientWidth
-    var h = document.documentElement.clientHeight
-    return {w, h}
+    const w = document.documentElement.clientWidth
+    const h = document.documentElement.clientHeight
+    return { w, h }
   }
 
   maxZ() {
-    let {width, height} = this.container
+    const { width, height } = this.container
     return (width + height) /2
   }
 }
