@@ -45,9 +45,9 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/starfield-next.es.js",
-      "require": "./dist/starfield-next.umd.js",
-      "types": "./types/index.d.ts"
+      "require": "./dist/starfield-next.umd.js"
     }
   },
   "scripts": {
@@ -60,7 +60,7 @@
     "build-storybook": "storybook build"
   },
   "type": "module",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "dependencies": {
     "color": "^5.0.2"
   },
