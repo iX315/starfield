@@ -8,11 +8,11 @@ import type { CanvasHTMLAttributes, DetailedHTMLProps } from 'react'
 type CanvasProps = DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>
 
 export interface StarfieldProps extends CanvasProps {
-  options?: Options
+  options?: Partial<Options>
 }
 
 export const Starfield = ({ options = {}, ...restProps }: StarfieldProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const starfield = useRef<StarfieldClass>()
 
   useEffect(() => {
@@ -28,7 +28,6 @@ export const Starfield = ({ options = {}, ...restProps }: StarfieldProps) => {
     <canvas
       ref={canvasRef}
       {...restProps}
-    >
-    </canvas>
+    />
   )
 }

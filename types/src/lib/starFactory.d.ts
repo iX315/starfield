@@ -1,5 +1,5 @@
 import { Star, MoveParams } from './star';
-import { Coords } from './starfield';
+import { Coords } from './coordinates';
 interface StarFactoryParams extends Coords {
     count: number;
     width: number;

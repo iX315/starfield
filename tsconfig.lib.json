@@ -8,7 +8,7 @@
     "declaration": true,
     "declarationDir": "src/types",
     "outDir": "dist",
-    "strict": false,
+    "strict": true,
     "emitDeclarationOnly": true,
     "composite": true,
     "esModuleInterop": true

@@ -4,28 +4,23 @@ import { StarFactory } from './starFactory'
 import { HyperspaceStates } from './hyperspace'
 import { Options } from './options'
 import { CanvasContainer } from './canvasContainer'
-
-export class Coords {
-  x: number
-  y: number
-  z?: number
-}
+import { Coords } from './coordinates'
 
 export class Starfield {
   canvas: CanvasContainer
-  starfactory: StarFactory
+  starfactory?: StarFactory
   hyperspace: HyperspaceStates = HyperspaceStates.Off
   options: Options
 
-  currentPos: Coords
-  cursorPos: Coords
+  currentPos: Coords = new Coords()
+  cursorPos: Coords = new Coords()
 
   _temp_settings: any
 
   key: any
   loop: any
 
-  public constructor(container: HTMLCanvasElement, options?: Options) {
+  public constructor(container: HTMLCanvasElement, options: Partial<Options> = {}) {
     this.options = new Options(options)
 
     // starfield container (canvas)
@@ -142,10 +137,9 @@ export class Starfield {
   }
 
   resize() {
-    this.currentPos = {
-      x: Math.round(this.canvas.width / 2),
-      y: Math.round(this.canvas.height / 2)
-    }
+    this.currentPos.x = Math.round(this.canvas.width / 2)
+    this.currentPos.y = Math.round(this.canvas.height / 2)
+
     this.cursorPos = this.currentPos
     this.canvas.resize()
     this.createStarFactory()
@@ -157,7 +151,7 @@ export class Starfield {
 
     this.canvas.context.fillText('speed: '+this.options.speed, 0, this.canvas.height - (12*3))
     this.canvas.context.fillText('maxZ: '+this.maxZ(), 0, this.canvas.height - (12*2))
-    this.canvas.context.fillText('star[0]: '+JSON.stringify(this.starfactory.store[0]), 0, this.canvas.height - (12*1))
+    this.canvas.context.fillText('star[0]: '+JSON.stringify(this.starfactory?.store[0]), 0, this.canvas.height - (12*1))
   }
 
   update() {
@@ -175,11 +169,12 @@ export class Starfield {
 
     this.update()
 
-    this.starfactory.move({
+    this.starfactory?.move({
       container: this.canvas,
       changeRate: {
         x: -(this.cursorPos.x - this.currentPos.x) / 2,
-        y: -(this.cursorPos.y - this.currentPos.y) / 2
+        y: -(this.cursorPos.y - this.currentPos.y) / 2,
+        z: 0
       },
       currentPos: this.currentPos,
       speed: this.options.speed,
