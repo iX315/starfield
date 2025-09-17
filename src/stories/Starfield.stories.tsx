@@ -1,4 +1,4 @@
-import { Starfield } from '../Starfield.component'
+import { Starfield } from '../components/Starfield.component'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 

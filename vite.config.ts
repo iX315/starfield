@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
-      outDir: 'types'
+      outDir: 'dist'
     })
   ],
   build: {
@@ -18,9 +18,10 @@ export default defineConfig({
       fileName: (format) => `starfield-next.${format}.js`
     },
     rollupOptions: {
-      external: ['react'],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
+          'react-dom': 'ReactDom',
           react: 'React'
         }
       }

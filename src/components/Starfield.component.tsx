@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-import { Starfield as StarfieldClass } from './Starfield'
+import { Starfield as StarfieldClass } from '../lib/starfield'
 
-import type { Options } from './Options'
+import type { Options } from '../lib/options'
 import type { CanvasHTMLAttributes, DetailedHTMLProps } from 'react'
 
 type CanvasProps = DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>

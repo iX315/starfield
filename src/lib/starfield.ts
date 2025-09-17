@@ -1,9 +1,9 @@
 import Color from 'color'
 
-import { StarFactory } from './StarFactory'
-import { HyperspaceStates } from './Hyperspace'
-import { Options } from './Options'
-import { CanvasContainer } from './CanvasContainer'
+import { StarFactory } from './starFactory'
+import { HyperspaceStates } from './hyperspace'
+import { Options } from './options'
+import { CanvasContainer } from './canvasContainer'
 
 export class Coords {
   x: number
@@ -12,7 +12,7 @@ export class Coords {
 }
 
 export class Starfield {
-  container: CanvasContainer
+  canvas: CanvasContainer
   starfactory: StarFactory
   hyperspace: HyperspaceStates = HyperspaceStates.Off
   options: Options
@@ -33,7 +33,7 @@ export class Starfield {
       throw new Error('Container not set')
     }
 
-    this.container = new CanvasContainer(container)
+    this.canvas = new CanvasContainer(container)
     this.resize()
 
     this.changeAmount(this.options.amount)
@@ -133,8 +133,8 @@ export class Starfield {
   createStarFactory() {
     this.starfactory = new StarFactory({
       count: this.options.amount,
-      width: this.container.width,
-      height: this.container.height,
+      width: this.canvas.width,
+      height: this.canvas.height,
       x: this.currentPos.x,
       y: this.currentPos.y,
       z: this.maxZ()
@@ -143,28 +143,28 @@ export class Starfield {
 
   resize() {
     this.currentPos = {
-      x: Math.round(this.container.width / 2),
-      y: Math.round(this.container.height / 2)
+      x: Math.round(this.canvas.width / 2),
+      y: Math.round(this.canvas.height / 2)
     }
     this.cursorPos = this.currentPos
-    this.container.resize()
+    this.canvas.resize()
     this.createStarFactory()
   }
 
   debug() {
-    this.container.context.font = '12px Arial'
-    this.container.context.fillStyle = 'white'
+    this.canvas.context.font = '12px Arial'
+    this.canvas.context.fillStyle = 'white'
 
-    this.container.context.fillText('speed: '+this.options.speed, 0, this.container.height - (12*3))
-    this.container.context.fillText('maxZ: '+this.maxZ(), 0, this.container.height - (12*2))
-    this.container.context.fillText('star[0]: '+JSON.stringify(this.starfactory.store[0]), 0, this.container.height - (12*1))
+    this.canvas.context.fillText('speed: '+this.options.speed, 0, this.canvas.height - (12*3))
+    this.canvas.context.fillText('maxZ: '+this.maxZ(), 0, this.canvas.height - (12*2))
+    this.canvas.context.fillText('star[0]: '+JSON.stringify(this.starfactory.store[0]), 0, this.canvas.height - (12*1))
   }
 
   update() {
     //context.lineCap='round'
-    this.container.context.fillStyle = this.options.backgroundColor.alpha(this.options.opacity).toString()
-    this.container.context.strokeStyle = this.options.color.toString() // Star's color
-    this.container.context.fillRect(0, 0, this.container.width, this.container.height)
+    this.canvas.context.fillStyle = this.options.backgroundColor.alpha(this.options.opacity).toString()
+    this.canvas.context.strokeStyle = this.options.color.toString() // Star's color
+    this.canvas.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
     if (this.options.showDebug) {
       this.debug()
     }
@@ -176,7 +176,7 @@ export class Starfield {
     this.update()
 
     this.starfactory.move({
-      container: this.container,
+      container: this.canvas,
       changeRate: {
         x: -(this.cursorPos.x - this.currentPos.x) / 2,
         y: -(this.cursorPos.y - this.currentPos.y) / 2
@@ -196,16 +196,16 @@ export class Starfield {
         this._temp_settings = {
           speed: this.options.speed,
           spread: this.options.spread,
-          backgroundColor: Color(this.container.context.fillStyle)
+          backgroundColor: Color(this.canvas.context.fillStyle)
         }
       }
 
       this.options.speed = this.options.speed * 1.025
       this.options.spread = this.options.spread * 0.99
       const c = Math.round(this.options.speed * 2.5) + 32
-      this.container.context.fillStyle = Color.rgb(c, c, c).toString()
+      this.canvas.context.fillStyle = Color.rgb(c, c, c).toString()
       if (this.options.speed > 112) {
-        this.container.context.fillStyle = Color.rgb(43, 45, 53).toString()
+        this.canvas.context.fillStyle = Color.rgb(43, 45, 53).toString()
         this.options.speed = 16
         this.options.spread = 256
         this.hyperspace = HyperspaceStates.Running
@@ -215,9 +215,9 @@ export class Starfield {
       this.options.speed = this.options.speed / 1.025
       this.options.spread = this.options.spread * 0.99
       const c = Math.round(this.options.speed / 2.5) - 32
-      this.container.context.fillStyle = Color.rgb(c, c, c).toString()
+      this.canvas.context.fillStyle = Color.rgb(c, c, c).toString()
       if (this.options.speed < this._temp_settings.speed) {
-        this.container.context.fillStyle = this._temp_settings.backgroundColor.toString()
+        this.canvas.context.fillStyle = this._temp_settings.backgroundColor.toString()
         this.options.speed = this._temp_settings.speed
         this.options.spread = this._temp_settings.spread
         this.hyperspace = HyperspaceStates.Off
@@ -233,7 +233,7 @@ export class Starfield {
   }
 
   maxZ() {
-    const { width, height } = this.container
+    const { width, height } = this.canvas
     return (width + height) /2
   }
 }

@@ -1,5 +1,5 @@
-import type { CanvasContainer } from './CanvasContainer'
-import type { Coords } from './Starfield'
+import type { CanvasContainer } from './canvasContainer'
+import type { Coords } from './starfield'
 
 export interface MoveParams {
   container: CanvasContainer
