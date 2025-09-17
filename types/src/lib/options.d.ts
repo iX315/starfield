@@ -11,5 +11,5 @@ export declare class Options {
     useMouse: boolean;
     useArrowKeys: boolean;
     showDebug: boolean;
-    constructor(options: Partial<Options>);
+    constructor({ color, backgroundColor, ...restOptions }: Partial<Options>);
 }

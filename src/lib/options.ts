@@ -15,7 +15,9 @@ export class Options {
   useArrowKeys: boolean = false
   showDebug: boolean = false
 
-  constructor(options: Partial<Options>) {
-    Object.assign(this, options)
+  constructor({ color, backgroundColor, ...restOptions }: Partial<Options>) {
+    if (color) this.color = new Color(color)
+    if (backgroundColor) this.backgroundColor = new Color(backgroundColor)
+    Object.assign(this, restOptions)
   }
 }
