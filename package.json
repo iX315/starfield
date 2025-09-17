@@ -39,17 +39,21 @@
   "license": "ISC",
   "name": "starfield-next",
   "files": [
-    "dist",
-    "types"
+    "dist"
   ],
-  "main": "./dist/starfield-next.umd.js",
-  "module": "./dist/starfield-next.es.js",
-  "types": "./types/index.d.ts",
+  "types": "./types/src/lib/starfield.d.ts",
+  "main": "./dist/starfield.js",
+  "module": "./dist/starfield.cjs",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./dist/starfield-next.es.js",
-      "require": "./dist/starfield-next.umd.js"
+      "types": "./types/src/lib/starfield.d.ts",
+      "import": "./dist/starfield.js",
+      "require": "./dist/starfield.cjs"
+    },
+    "./react": {
+      "types": "./types/src/components/Starfield.component.d.ts",
+      "import": "./dist/Starfield.component.js",
+      "require": "./dist/Starfield.component.cjs"
     }
   },
   "scripts": {
@@ -66,7 +70,7 @@
   "dependencies": {
     "color": "^5.0.2"
   },
-  "packageManager": "pnpm@8.14.0",
+  "packageManager": "pnpm@10.16.0",
   "engines": {
     "node": "^22.0.0"
   }

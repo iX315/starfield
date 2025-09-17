@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "types": ["node", "vitest/globals"],
     "esModuleInterop": true,
+    "outDir": "tsc",
     "skipLibCheck": true,
   },
   "include": ["vite.config.ts", "vitest.config.ts"],

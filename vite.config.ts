@@ -6,23 +6,24 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      insertTypesEntry: true,
-      outDir: 'dist'
+      outDir: 'types',
+      tsconfigPath: 'tsconfig.lib.json'
     })
   ],
   build: {
     copyPublicDir: false,
     lib: {
-      entry: '/src/index.ts',
-      name: 'starfield-next',
-      fileName: (format) => `starfield-next.${format}.js`
+      entry: ['/src/lib/starfield.ts', '/src/components/Starfield.component.tsx'],
+      name: 'starfield-next'
     },
+    emptyOutDir: true,
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
         globals: {
           'react-dom': 'ReactDom',
-          react: 'React'
+          react: 'React',
+          'react/jsx-runtime': 'ReactJsxRuntime'
         }
       }
     }
