@@ -67,7 +67,7 @@
     "build-storybook": "storybook build"
   },
   "type": "module",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "dependencies": {
     "color": "^5.0.2"
   },
