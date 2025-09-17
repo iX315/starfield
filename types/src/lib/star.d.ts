@@ -1,5 +1,5 @@
-import type { CanvasContainer } from './CanvasContainer';
-import type { Coords } from './Starfield';
+import { CanvasContainer } from './canvasContainer';
+import { Coords } from './coordinates';
 export interface MoveParams {
     container: CanvasContainer;
     changeRate: Coords;
@@ -17,11 +17,11 @@ export declare class Star {
     x: number;
     y: number;
     z: number;
-    from?: number;
-    to?: number;
+    from: number;
+    to: number;
     out_of_view: boolean;
     constructor(props: StarProps);
-    move({ container, changeRate, currentPos, speed, spread, color_ratio, maxZ, }: MoveParams): void;
+    move({ container, changeRate, currentPos, speed, spread, color_ratio, maxZ }: MoveParams): void;
     moveX(rate: number, current: number, width: number): void;
     moveY(rate: number, current: number, height: number): void;
     moveZ(speed: number, current: number): void;

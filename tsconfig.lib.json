@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationDir": "src/types",
+    "outDir": "dist",
+    "strict": true,
+    "emitDeclarationOnly": true,
+    "composite": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "extends": "./tsconfig.json"
+}

@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
+    "target": "ES2020",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "react-jsx",
-    "declaration": true,
-    "declarationDir": "types",
-    "outDir": "dist",
-    "strict": false,
-    "esModuleInterop": true
+    "types": ["node", "vitest/globals"],
+    "esModuleInterop": true,
+    "outDir": "tsc",
+    "skipLibCheck": true,
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["vite.config.ts", "vitest.config.ts"],
+  "references": [
+    {"path": "./tsconfig.lib.json"},
+    {"path": "./tsconfig.test.json"},
+  ]
 }

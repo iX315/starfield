@@ -1,15 +1,11 @@
-import { StarFactory } from './StarFactory';
-import { HyperspaceStates } from './Hyperspace';
-import { Options } from './Options';
-import { CanvasContainer } from './CanvasContainer';
-export declare class Coords {
-    x: number;
-    y: number;
-    z?: number;
-}
+import { StarFactory } from './starFactory';
+import { HyperspaceStates } from './hyperspace';
+import { Options } from './options';
+import { CanvasContainer } from './canvasContainer';
+import { Coords } from './coordinates';
 export declare class Starfield {
-    container: CanvasContainer;
-    starfactory: StarFactory;
+    canvas: CanvasContainer;
+    starfactory?: StarFactory;
     hyperspace: HyperspaceStates;
     options: Options;
     currentPos: Coords;
@@ -17,13 +13,13 @@ export declare class Starfield {
     _temp_settings: any;
     key: any;
     loop: any;
-    constructor(container: HTMLCanvasElement, options?: Options);
-    start(): void;
+    constructor(container: HTMLCanvasElement, options?: Partial<Options>);
+    start(): this;
     stop(): void;
     addListeners(): void;
     removeListeners(): void;
     key_manager(event: KeyboardEvent): void;
-    use_arrows(key: number): void;
+    use_arrows(key: string): void;
     mouse_manager(event: MouseEvent): void;
     changeColor(colorValue: any): void;
     changeAmount(amountValue: number): void;

@@ -1,5 +1,5 @@
-import type {CanvasContainer} from './CanvasContainer'
-import type {Coords} from './Starfield'
+import type { CanvasContainer } from './canvasContainer'
+import type { Coords } from './coordinates'
 
 export interface MoveParams {
   container: CanvasContainer
@@ -20,8 +20,8 @@ export class Star {
   x: number
   y: number
   z: number
-  from?: number
-  to?: number
+  from: number = 0
+  to: number = 0
   out_of_view: boolean = false
 
   constructor(props: StarProps) {
@@ -37,12 +37,12 @@ export class Star {
     speed,
     spread,
     color_ratio,
-    maxZ,
+    maxZ
   }: MoveParams) {
     this.out_of_view = false
     const new_coords = {
       x: this.from,
-      y: this.to,
+      y: this.to
     }
 
     this.moveX(changeRate.x, currentPos.x, container.width)
@@ -52,11 +52,9 @@ export class Star {
     this.from = Math.round(currentPos.x + (this.x / this.z) * spread)
     this.to = Math.round(currentPos.y + (this.y / this.z) * spread)
 
-    if (
-      new_coords.x > 0 && new_coords.x < container.width &&
-            new_coords.y > 0 && new_coords.y < container.height &&
-            !this.out_of_view
-    ) {
+    const xBound = new_coords.x > 0 && new_coords.x < container.width
+    const yBound = new_coords.y > 0 && new_coords.y < container.height
+    if (xBound && yBound && !this.out_of_view) {
       container.context.lineWidth = (1 - color_ratio * this.z) * 2
       container.context.beginPath()
       container.context.moveTo(new_coords.x, new_coords.y)
