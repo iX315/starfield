@@ -39,7 +39,8 @@
   "license": "ISC",
   "name": "starfield-next",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "types": "./types/src/lib/starfield.d.ts",
   "main": "./dist/starfield.js",
