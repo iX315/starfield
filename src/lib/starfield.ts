@@ -15,10 +15,14 @@ export class Starfield {
   currentPos: Coords = new Coords()
   cursorPos: Coords = new Coords()
 
-  _temp_settings: any
+  _temp_settings: {
+    speed: number;
+    spread: number;
+    backgroundColor: ColorInstance;
+  } | null = null;
 
-  key: any
-  loop: any
+  key: string | null = null;
+  loop: NodeJS.Timeout | null = null;
 
   public constructor(container: HTMLCanvasElement, options: Partial<Options> = {}) {
     this.options = new Options(options)
@@ -82,32 +86,6 @@ export class Starfield {
         }
         break
     }
-    if (this.options.useArrowKeys) {
-      this.use_arrows(key)
-    }
-  }
-
-  use_arrows(key: string) {
-    switch (key) {
-      case 'ArrowUp':
-      case 'Up':
-        // handle up
-        break
-      case 'ArrowDown':
-      case 'Down':
-        // handle down
-        break
-      case 'ArrowLeft':
-      case 'Left':
-        // handle left
-        break
-      case 'ArrowRight':
-      case 'Right':
-        // handle right
-        break
-      default:
-        // no action
-    }
   }
 
   mouse_manager(event: MouseEvent) {
@@ -116,8 +94,8 @@ export class Starfield {
     this.cursorPos.y = event.clientY
   }
 
-  changeColor(colorValue: any) {
-    this.options.color = Color(colorValue)
+  changeColor(colorValue: string | ColorInstance) {
+    this.options.color = colorValue instanceof Color ? colorValue : Color(colorValue)
   }
 
   changeAmount(amountValue: number) {

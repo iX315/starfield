@@ -12,8 +12,8 @@ export interface MoveParams {
 }
 
 interface StarProps extends Coords {
-  from?: number
-  to?: number
+  from: number
+  to: number
 }
 
 export class Star {
@@ -28,6 +28,8 @@ export class Star {
     this.x = props.x
     this.y = props.y
     this.z = props.z
+    this.from = props.from || 0
+    this.to = props.to || 0
   }
 
   move({
@@ -40,24 +42,22 @@ export class Star {
     maxZ
   }: MoveParams) {
     this.out_of_view = false
-    const new_coords = {
-      x: this.from,
-      y: this.to
-    }
 
     this.moveX(changeRate.x, currentPos.x, container.width)
     this.moveY(changeRate.y, currentPos.y, container.height)
     this.moveZ(speed, maxZ)
 
+    const prevFrom = this.from
+    const prevTo = this.to
     this.from = Math.round(currentPos.x + (this.x / this.z) * spread)
     this.to = Math.round(currentPos.y + (this.y / this.z) * spread)
 
-    const xBound = new_coords.x > 0 && new_coords.x < container.width
-    const yBound = new_coords.y > 0 && new_coords.y < container.height
+    const xBound = this.from > 0 && this.from < container.width
+    const yBound = this.to > 0 && this.to < container.height
     if (xBound && yBound && !this.out_of_view) {
       container.context.lineWidth = (1 - color_ratio * this.z) * 2
       container.context.beginPath()
-      container.context.moveTo(new_coords.x, new_coords.y)
+      container.context.moveTo(prevFrom, prevTo)
       container.context.lineTo(this.from, this.to)
       container.context.stroke()
       container.context.closePath()
